@@ -1,0 +1,191 @@
+/* Arquivo de estilizacão */
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: #333;
+    color: rgb(49, 201, 242);
+    font-family: sans-serif;
+}
+
+div.topo{
+    position: fixed;
+    width: 100%;
+    height: 50px;
+    left:0px;
+    top: 0px;
+    background: #333;
+    box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.30);
+    z-index: 500;
+}
+
+div.btn_menu{
+    width: 50px;
+    height: 50px;
+    font-size: 2.5em;
+    float: left;
+    text-align: center;
+    line-height: 50px;
+    border-right: 1px solid rgba(0, 0, 0, 0.30);
+}
+
+div.titulo_app{
+    float: left;
+    height: 50px;
+    font-size: 1.4em;
+    line-height: 50px;
+    margin-left: 20px;
+}
+
+div.form_login{
+    width: 100%;
+    margin-top: 30px;
+}
+
+form{
+    padding: 10px;
+}
+
+div.form_camp{
+    width: 100%;
+    position: relative;
+    padding-top: 30px;
+}
+
+div.form_camp label{
+    display: table;
+    position: absolute;
+    bottom: 10px;
+    left: 0px;
+    font-size: 1em;
+}
+
+form input{
+    background: #333;
+    border: none;
+    border-bottom: 3px solid rgb(49, 201, 242);
+    color:rgb(49, 201, 242);
+    width: 100%;
+    padding: 5px 0px;
+}
+
+form input[type=submit]{
+    width: auto;
+    margin-top: 10px;
+    border: none;
+    background: rgb(49, 201, 242);
+    padding: 8px 15px;
+    color: #333;
+    text-transform: uppercase;
+    font-size: 1em;
+}
+
+div.icon_voltar{
+    height: 30px;
+    background: url("../img/icon_voltar.png") no-repeat;
+    background-position: 7px center;
+    background-size: 25px 25px;
+    line-height: 30px;
+    padding-left: 40px;
+    display: table;
+}
+
+div.capo_msg_escrever{
+    width: 100%;
+    height: 130px;
+    padding: 10px;
+    position: absolute;
+    bottom: 0px;
+    background: #333;
+    box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.30);
+}
+
+div.escreve_msg{
+    height: 70px;
+    width: 100%;
+    border: 1px solid #222;
+    padding: 5px;
+    overflow: auto;
+}
+
+div.btn_envi_msg{
+    float: right;
+    margin-top: 10px;
+    background: #31c9f2;
+    color: #333;
+    padding: 5px 10px;
+}
+
+div.campo_mgs_recebido{
+    position: fixed;
+    padding: 10px;
+    bottom: 130px;
+    width: 100%;
+    height: calc(100% - 180px);
+    overflow: auto;
+}
+
+span.texto_msg{
+    color: #999;
+}
+
+div.menu_lateral{
+    position: fixed;
+    top: 50px;
+    left: -100%;
+    width: 80%;
+    min-height: 100%;
+    height: calc(100% - 50px);
+    padding: 10px;
+    background: #333;
+    box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.30);
+    z-index: 499;
+}
+
+div.esqueleto_canal{
+    padding: 5px 0;
+    margin: 5px 0;
+}
+
+div.tela_popUp{
+    position: fixed;
+    display: none;
+    top: 50%;
+    left: 50%;
+    width: 0%;
+    height: 0%;
+    padding: 10px;
+    background: #333;
+    box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.30);
+    z-index: 501;
+}
+
+div.barra_topo_popUp{
+    position: relative;
+    width: 100%;
+    height: 30px;
+    display: table;
+    clear: both;
+    margin-bottom: 20px;
+}
+
+div.titulos{
+    float: left;
+    height: 30px;
+    font-size: 1.4em;
+    line-height: 30px;
+    margin-left: 10px;
+    display: none;
+}
+
+div.popup_btn_voltar{
+    margin-bottom: 0px;
+    margin-left: -10px;
+    padding-right: 15px;
+    float: left;
+    border-right: 1px solid #222;
+}
