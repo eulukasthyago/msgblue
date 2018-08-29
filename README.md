@@ -8,8 +8,4 @@ Criado como um hobby, baseande em filmes de Hackers.
 2. Não sera possivel recuperação de senha, se perder a senha tera que criar uma nova conta.
 3. Mensagens tem durabilidade de 24h, apos isso sera automaticamnete destruido.
 
-
-
-![Image](http://img.csc.rf.gd/uploads/big/7a766ef7e23ecf4eab3b425b736ea708.png)
-
-![Image](http://img.csc.rf.gd/uploads/big/ff8988a251327fa7cc49b796342eaae3.png)
+![Deepin-Screenshot_selecionar-area_20180829153837.png](http://img.csc.rf.gd/images/2018/08/29/Deepin-Screenshot_selecionar-area_20180829153837.png)
