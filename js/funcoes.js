@@ -22,7 +22,7 @@ $(document).ready(function () {
                 if (dados == "sucesso") {
                     alert("Cadastrado com sucesso!");
                 } else if (dados == "ja cadastrado") {
-                    alert("Ja Ã¡ um cadastro com esse username");
+                    alert("Ja tem um cadastro com esse username");
                 };
             },
         });
@@ -40,11 +40,23 @@ $(document).ready(function () {
             data: { unome: $unome, senha: $senha },
             success: function (dados) {
                 if (dados == "logado") {
-                    $(".tela_all").hide();
-                    $(".tela_inicial").show();
-                    alert($username);
+                    if (typeof(Storage) !== "undefined") {
+                        $(".tela_all").hide();
+                        $(".tela_inicial").show();
+                        swal({
+                            type: 'success',
+                            title: 'Login',
+                            text: 'Você foi logado com sucesso como,' + $username + '. Por favor, escolha um canal para comecar a conversar!'
+                        });
+                    }else{
+                        swal({
+                           type: 'error',
+                           title: 'Error!',
+                           text: 'Sorry, your browser does not support Web Storage...'
+                        });
+                    }
                 } else if (dados == "n_cadastrado") {
-                    alert("Usuario nÃ£o encontrado");
+                    alert("Usuario não encontrado");
                 } else if (dados == "n_senha") {
                     alert("Senha incorreta");
                 };
