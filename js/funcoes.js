@@ -48,6 +48,7 @@ $(document).ready(function () {
                             title: 'Login',
                             text: 'Você foi logado com sucesso como,' + $username + '. Por favor, escolha um canal para comecar a conversar!'
                         });
+                        window.sessionStorage.setItem("username", $username);
                     }else{
                         swal({
                            type: 'error',
@@ -65,6 +66,13 @@ $(document).ready(function () {
 
         return false;
     });
+
+    //Verificar se logou
+    if (sessionStorage.getItem("username") != null) {
+        $(".tela_all").hide();
+        $(".tela_inicial").show();
+        $username = sessionStorage.getItem("username");
+    }
 
     //Login para cadastro
     $(".btn_atvt_cadastro").click(function () {
