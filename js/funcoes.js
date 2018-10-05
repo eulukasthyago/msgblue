@@ -138,6 +138,23 @@ $(document).ready(function () {
 
     //Carregar Canais
     var $canal_selecinado;
+    if (sessionStorage.getItem("ultimo_canal_selecinado") != null) {
+        $canal_selecinado = sessionStorage.getItem("ultimo_canal_selecinado");
+        $.ajax({
+            type: 'post',
+            url: 'http://kmessenger.esy.es/msgblue/bus_msg.php',
+            data: {idcanal: $canal_selecinado, tipo_load: 'todos'},
+            success: function(msg_recebido){
+                $(".msg_tudo_aqui").html(msg_recebido);
+                $tamanho = $(".msg_tudo_aqui").height();
+                $(".campo_mgs_recebido").scrollTop($tamanho);
+                carregarMSG();
+            },
+            error: function(){
+                alert("NÃ£o foi possivel buscar mensagens");
+            }
+        });
+    }
     $.ajax({
         type: 'post',
         url: 'http://kmessenger.esy.es/msgblue/canais.php',
@@ -165,6 +182,7 @@ $(document).ready(function () {
             }, 300);
             $(".esqueleto_canal").click(function () {
                 $canal_selecinado = $(this).find(".nome_canal").attr("idcanal");
+                sessionStorage.setItem("ultimo_canal_selecinado", $canal_selecinado);
                 $(".btn_menu").addClass("aberto").css({
                     transform: 'rotate(0deg)',
                     borderRight: '1px solid rgba(0, 0, 0, 0.30)',
