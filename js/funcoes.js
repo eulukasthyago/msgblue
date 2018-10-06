@@ -20,9 +20,17 @@ $(document).ready(function () {
             data: { unome: $unome, senha: $senha },
             success: function (dados) {
                 if (dados == "sucesso") {
-                    alert("Cadastrado com sucesso!");
+                    swal({
+                        text: "Cadastrado com sucesso!",
+                        type: "success"
+                    });
+                    $(".tela_cadastro").hide();
+                    $(".tela_login").show();
                 } else if (dados == "ja cadastrado") {
-                    alert("Ja tem um cadastro com esse username");
+                    swal({
+                        text: "Ja tem um cadastro com esse username",
+                        type: "error"
+                    });
                 };
             },
         });
@@ -46,9 +54,9 @@ $(document).ready(function () {
                         swal({
                             type: 'success',
                             title: 'Login',
-                            text: 'Você foi logado com sucesso como,' + $username + '. Por favor, escolha um canal para comecar a conversar!'
+                            text: 'Você foi logado com sucesso como,' + $username + '. Por favor, escolha um canal para começar a conversar!'
                         });
-                        window.sessionStorage.setItem("username", $username);
+                        localStorage.setItem("username", $username);
                     }else{
                         swal({
                            type: 'error',
@@ -57,9 +65,15 @@ $(document).ready(function () {
                         });
                     }
                 } else if (dados == "n_cadastrado") {
-                    alert("Usuario não encontrado");
+                    swal({
+                        text: "Usuario não encontrado",
+                        type: "error"
+                    });
                 } else if (dados == "n_senha") {
-                    alert("Senha incorreta");
+                    swal({
+                        text: "Senha incorreta",
+                        type: "error" 
+                    });
                 };
             },
         });
@@ -68,11 +82,18 @@ $(document).ready(function () {
     });
 
     //Verificar se logou
-    if (sessionStorage.getItem("username") != null) {
-        $(".tela_all").hide();
-        $(".tela_inicial").show();
-        $username = sessionStorage.getItem("username");
+    function verifLogin(){
+        if (localStorage.getItem("username") != null) {
+            $(".tela_all").hide();
+            $(".tela_inicial").show();
+            $username = localStorage.getItem("username");
+            clearInterval($time_ferifilogin);
+        }
     }
+
+    let $time_ferifilogin = setInterval(function(){
+        verifLogin();
+    }, 1000);
 
     //Login para cadastro
     $(".btn_atvt_cadastro").click(function () {
@@ -85,7 +106,6 @@ $(document).ready(function () {
         $(".tela_cadastro").hide();
         $(".tela_login").show();
     });
-
 
     // Efeito formulario
     $("input").focus(function () {
@@ -138,8 +158,8 @@ $(document).ready(function () {
 
     //Carregar Canais
     var $canal_selecinado;
-    if (sessionStorage.getItem("ultimo_canal_selecinado") != null) {
-        $canal_selecinado = sessionStorage.getItem("ultimo_canal_selecinado");
+    if (localStorage.getItem("ultimo_canal_selecinado") != null) {
+        $canal_selecinado = localStorage.getItem("ultimo_canal_selecinado");
         $.ajax({
             type: 'post',
             url: 'http://kmessenger.esy.es/msgblue/bus_msg.php',
@@ -148,10 +168,11 @@ $(document).ready(function () {
                 $(".msg_tudo_aqui").html(msg_recebido);
                 $tamanho = $(".msg_tudo_aqui").height();
                 $(".campo_mgs_recebido").scrollTop($tamanho);
-                carregarMSG();
             },
             error: function(){
-                alert("NÃ£o foi possivel buscar mensagens");
+                swal({
+                    text:"Não foi possivel buscar mensagens, por favor, verifiquue sua conexão"
+                });
             }
         });
     }
@@ -182,7 +203,7 @@ $(document).ready(function () {
             }, 300);
             $(".esqueleto_canal").click(function () {
                 $canal_selecinado = $(this).find(".nome_canal").attr("idcanal");
-                sessionStorage.setItem("ultimo_canal_selecinado", $canal_selecinado);
+                localStorage.setItem("ultimo_canal_selecinado", $canal_selecinado);
                 $(".btn_menu").addClass("aberto").css({
                     transform: 'rotate(0deg)',
                     borderRight: '1px solid rgba(0, 0, 0, 0.30)',
@@ -204,7 +225,9 @@ $(document).ready(function () {
                         carregarMSG();
                     },
                     error: function(){
-                        alert("NÃ£o foi possivel buscar mensagens");
+                        swal({
+                            text: "Não foi possivel buscar mensagens"
+                        });
                     }
                 });
                 function carregarMSG(){
@@ -221,7 +244,10 @@ $(document).ready(function () {
                                 $(".campo_mgs_recebido").scrollTop($tamanho);
                             },
                             error: function(){
-                                alert("NÃ£o foi possivel buscar mensagens");
+                                swal({
+                                    text: "Não foi possivel buscar mensagens",
+                                    type: "error"
+                                });
                             }
                         });
                     }, 3000);
@@ -229,7 +255,10 @@ $(document).ready(function () {
             });
         },
         error: function (erro) {
-            alert("Erro ao carregar canais");
+            swal({
+                text: "Erro ao carregar canais",
+                type: "error"
+            });
         }
     });
 
@@ -243,7 +272,10 @@ $(document).ready(function () {
                 $(".escreve_msg").html("");
             },
             error: function(){
-                alert("NÃ£o foi possivel enviar a mensagem: " + $texto);
+                swal({
+                    text: "Não foi possivel enviar a mensagem: " + $texto,
+                    type: "error"
+                });
             }
         });
     });
