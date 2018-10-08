@@ -16,7 +16,7 @@ $(document).ready(function () {
             $senha = $("form[name=form_cadastro] input[name=senha]").val();
         $.ajax({
             type: 'post',
-            url: 'http://api.messengerblue.rf.gd/1.0/cadastro.php',
+            url: '//app.messengerblue.rf.gd/api/1.0/cadastro.php',
             data: { unome: $unome, senha: $senha },
             success: function (dados) {
                 if (dados == "sucesso") {
@@ -44,7 +44,7 @@ $(document).ready(function () {
             $senha = $("form[name=form_login] input[name=senha]").val();
         $.ajax({
             type: 'post',
-            url: 'http://api.messengerblue.rf.gd/1.0/login.php',
+            url: '//app.messengerblue.rf.gd/api/1.0/login.php',
             data: { unome: $unome, senha: $senha },
             success: function (dados) {
                 if (dados == "logado") {
@@ -104,7 +104,6 @@ $(document).ready(function () {
     //Cadastro para login
     $(".btn_atvt_login").click(function () {
         $(".tela_cadastro").hide();
-        $(".tela_login").show();
     });
 
     // Efeito formulario
@@ -136,7 +135,7 @@ $(document).ready(function () {
             $ultima_msg = $(".esqueleto_msg").last().find(".texto_msg").html();
             $.ajax({
                 type: 'post',
-                url: 'http://api.messengerblue.rf.gd/1.0/bus_msg.php',
+                url: '//app.messengerblue.rf.gd/api/1.0/bus_msg.php',
                 data: {idcanal: $canal_selecinado, tipo_load: 'ultma', ultima_msg: $ultima_msg},
                 success: function(msg_recebido){
                     $(".msg_tudo_aqui").append(msg_recebido);
@@ -186,7 +185,7 @@ $(document).ready(function () {
         $canal_selecinado = localStorage.getItem("ultimo_canal_selecinado");
         $.ajax({
             type: 'post',
-            url: 'http://api.messengerblue.rf.gd/1.0/bus_msg.php',
+            url: '//app.messengerblue.rf.gd/api/1.0/bus_msg.php',
             data: {idcanal: $canal_selecinado, tipo_load: 'todos'},
             success: function(msg_recebido){
                 $(".msg_tudo_aqui").html(msg_recebido);
@@ -203,7 +202,7 @@ $(document).ready(function () {
     }
     $.ajax({
         type: 'post',
-        url: 'http://api.messengerblue.rf.gd/1.0/canais.php',
+        url: '//app.messengerblue.rf.gd/api/1.0/canais.php',
         success: function (dados) {
             $(".canal_msg").append(dados);
             // Espaco MSG
@@ -241,7 +240,7 @@ $(document).ready(function () {
                 });
                 $.ajax({
                     type: 'post',
-                    url: 'http://api.messengerblue.rf.gd/1.0/bus_msg.php',
+                    url: '//app.messengerblue.rf.gd/api/1.0/bus_msg.php',
                     data: {idcanal: $canal_selecinado, tipo_load: 'todos'},
                     success: function(msg_recebido){
                         $(".msg_tudo_aqui").html(msg_recebido);
@@ -269,7 +268,7 @@ $(document).ready(function () {
         $texto = $(".escreve_msg").html();
         $.ajax({
             type: 'post',
-            url: 'http://api.messengerblue.rf.gd/1.0/envi_msg.php',
+            url: '//app.messengerblue.rf.gd/api/1.0/envi_msg.php',
             data: {texto: $texto, de_user: $username, canal: $canal_selecinado},
             success: function(){
                 $(".escreve_msg").html("");
@@ -284,3 +283,10 @@ $(document).ready(function () {
     });
 
 });
+
+function logout(){
+    localStorage.removeItem("username");
+    localStorage.removeItem("ultimo_canal_selecinado");
+    $(".tela_all").hide();
+    $(".tela_login").show();
+}
