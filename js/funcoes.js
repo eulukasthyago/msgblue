@@ -18,6 +18,12 @@ $(document).ready(function () {
             type: 'post',
             url: '//app.messengerblue.rf.gd/api/1.0/cadastro.php',
             data: { unome: $unome, senha: $senha },
+            beforesend: function(){
+                swal({
+                    text: "Requisitando cadastro, por favor, agarde...",
+                    type: "info"
+                });
+            },
             success: function (dados) {
                 if (dados == "sucesso") {
                     swal({
@@ -46,6 +52,12 @@ $(document).ready(function () {
             type: 'post',
             url: '//app.messengerblue.rf.gd/api/1.0/login.php',
             data: { unome: $unome, senha: $senha },
+            beforesend: function() {
+                swal({
+                    text: "Requisitando login, por favor, agarde...",
+                    type: "info"
+                });
+            },
             success: function (dados) {
                 if (dados == "logado") {
                     if (typeof(Storage) !== "undefined") {
@@ -56,7 +68,7 @@ $(document).ready(function () {
                             title: 'Login',
                             text: 'Você foi logado com sucesso como,' + $username + '. Por favor, escolha um canal para começar a conversar!'
                         });
-                        localStorage.setItem("username", $username);
+                        window.sessionStorage.setItem("username", $username);
                     }else{
                         swal({
                            type: 'error',
@@ -83,11 +95,14 @@ $(document).ready(function () {
 
     //Verificar se logou
     function verifLogin(){
-        if (localStorage.getItem("username") != null) {
+        if (window.sessionStorage.getItem("username") != null) {
             $(".tela_all").hide();
             $(".tela_inicial").show();
-            $username = localStorage.getItem("username");
+            $username = window.sessionStorage.getItem("username");
+            window.sessionStorage.setItem("username", $username);
             clearInterval($time_ferifilogin);
+            $(".unameaqui").text(window.sessionStorage.getItem("username"));
+            $(".canalaqui").text(window.sessionStorage.getItem("ultimo_canal_selecinado"));
         }
     }
 
@@ -181,8 +196,8 @@ $(document).ready(function () {
 
     //Carregar Canais
     var $canal_selecinado;
-    if (localStorage.getItem("ultimo_canal_selecinado") != null) {
-        $canal_selecinado = localStorage.getItem("ultimo_canal_selecinado");
+    if (window.sessionStorage.getItem("ultimo_canal_selecinado") != null) {
+        $canal_selecinado = window.sessionStorage.getItem("ultimo_canal_selecinado");
         $.ajax({
             type: 'post',
             url: '//app.messengerblue.rf.gd/api/1.0/bus_msg.php',
@@ -227,7 +242,7 @@ $(document).ready(function () {
             }, 300);
             $(".esqueleto_canal").click(function () {
                 $canal_selecinado = $(this).find(".nome_canal").attr("idcanal");
-                localStorage.setItem("ultimo_canal_selecinado", $canal_selecinado);
+                window.sessionStorage.setItem("ultimo_canal_selecinado", $canal_selecinado);
                 $(".btn_menu").addClass("aberto").css({
                     transform: 'rotate(0deg)',
                     borderRight: '1px solid rgba(0, 0, 0, 0.30)',
@@ -285,8 +300,8 @@ $(document).ready(function () {
 });
 
 function logout(){
-    localStorage.removeItem("username");
-    localStorage.removeItem("ultimo_canal_selecinado");
+    window.sessionStorage.removeItem("username");
+    window.sessionStorage.removeItem("ultimo_canal_selecinado");
     $(".tela_all").hide();
     $(".tela_login").show();
 }
