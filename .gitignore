@@ -2,5 +2,6 @@
 #arquivo SFTP
 
 sftp-config.json
-
+.htaccess
 api/
+bk/
